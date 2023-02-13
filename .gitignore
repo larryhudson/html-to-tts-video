@@ -4,4 +4,6 @@ package-lock.json
 .env
 audio-track.mp3
 video.mp4
+timings.json
 .tmp-text-to-speech
+11ty-output

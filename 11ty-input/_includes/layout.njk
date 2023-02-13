@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="/assets/js/frame-control.js"></script>
+    <style>
+      @font-face {
+        font-family: "Roboto";
+        src: url("/assets/Roboto-Regular.ttf");
+        font-weight: 400;
+        font-style: normal;
+      }
+
+      html {
+        background-color: lightgray;
+      }
+
+      .screen {
+        font-family: "Roboto";
+        /* width: 640px;
+        height: 480px; */
+        background: white;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        min-width: 100vw;
+        min-height: 100vh;
+
+        padding: 2rem;
+        font-size: 32px;
+        line-height: 1.6;
+      }
+
+      .content {
+        max-width: 32rem;
+        margin: 0 auto;
+      }
+
+      .highlight {
+        background-color: yellow;
+      }
+
+      h1 {
+        line-height: 1;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="screen">
+      <div class="content">
+        {% set ttsData = content | tts %}
+        {{ ttsData.withSpans | safe }}
+
+        <script>
+          const timings = {{ttsData.timings | dump(2) | safe}};
+        </script>
+      </div>
+    </div>
+  </body>
+</html>

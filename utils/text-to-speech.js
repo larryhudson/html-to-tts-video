@@ -1,15 +1,16 @@
-import {
+const {
   SpeechConfig,
   SpeechSynthesisOutputFormat,
   AudioConfig,
   SpeechSynthesizer,
-} from "microsoft-cognitiveservices-speech-sdk";
-import { AssetCache } from "@11ty/eleventy-fetch";
-import md5 from "js-md5";
-import { join } from "path";
-import { encode } from "html-entities";
-import { convert as htmlToText } from "html-to-text";
-import fs from "fs";
+} = require("microsoft-cognitiveservices-speech-sdk");
+
+const { AssetCache } = require("@11ty/eleventy-fetch");
+const md5 = require("js-md5");
+const { join } = require("path");
+const { encode } = require("html-entities");
+const { convert: htmlToText } = require("html-to-text");
+const fs = require("fs");
 
 function chunkText(text) {
   const MAX_CHUNK_LENGTH = 7000;
@@ -153,8 +154,18 @@ async function convertTextChunkToSpeech(text, options) {
   };
 }
 
-export async function convertHtmlToSpeech(htmlContent, options) {
-  const text = htmlToText(htmlContent, { wordwrap: 0 });
+async function convertHtmlToSpeech(htmlContent, options) {
+  const text = htmlToText(htmlContent, {
+    wordwrap: 0,
+    selectors: [
+      { selector: "h1", options: { uppercase: false } },
+      { selector: "h2", options: { uppercase: false } },
+      { selector: "h2", options: { uppercase: false } },
+      { selector: "h3", options: { uppercase: false } },
+      { selector: "h4", options: { uppercase: false } },
+      { selector: "ul", options: { itemPrefix: " " } },
+    ],
+  });
 
   // chunk text
   const chunks = chunkText(text);
@@ -175,3 +186,7 @@ export async function convertHtmlToSpeech(htmlContent, options) {
     timings: timingsArrays.flat(),
   };
 }
+
+module.exports = {
+  convertHtmlToSpeech,
+};

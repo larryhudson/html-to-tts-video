@@ -16,8 +16,8 @@ import stream from "stream";
 import { spawn } from "node:child_process";
 
 // utils for text to speech
-import { convertHtmlToSpeech } from "./utils/text-to-speech.mjs";
-import { addSpansToHtml } from "./utils/add-spans.mjs";
+import { convertHtmlToSpeech } from "./utils/text-to-speech.js";
+import { addSpansToHtml } from "./utils/add-spans.js";
 
 function applyStylesToHtml(html) {
   const $ = cheerio.load(html);
@@ -38,7 +38,7 @@ function applyStylesToHtml(html) {
 }
 
 async function main() {
-  const textContent = "I am creating a video with HTML";
+  const textContent = "Hello Claire how are you?";
 
   const htmlContent = `<div class="content"><p>${textContent}</p></div>`;
 

@@ -1,4 +1,4 @@
-import { JSDOM } from "jsdom";
+const { JSDOM } = require("jsdom");
 
 const addSpansToText = (text, timings) => {
   let workingString = text;
@@ -17,7 +17,7 @@ const addSpansToText = (text, timings) => {
   return workingString;
 };
 
-export const addSpansToHtml = (html, timingsArr) => {
+const addSpansToHtml = (html, timingsArr) => {
   // JSDOM + createTreeWalker give us an iterator of all the text nodes in the document
   const jsdom = new JSDOM();
   const document = new jsdom.window.DOMParser().parseFromString(
@@ -86,4 +86,8 @@ export const addSpansToHtml = (html, timingsArr) => {
 
   // return our new HTML
   return document.body.innerHTML;
+};
+
+module.exports = {
+  addSpansToHtml,
 };
